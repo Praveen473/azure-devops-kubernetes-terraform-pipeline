@@ -1,8 +1,40 @@
+# trigger:
+# - main
+
+# pool:
+#   name: Default
+
+# stages:
+# - stage: Build
+#   jobs:
+#   - job: FirstJob
+#     steps:
+#     - script: echo Build FirstJob
+#     - script: echo $(Build.BuildNumber)
+#     - script: echo $(Build.BuildId)
+#     - script: echo $(Build.BuildNumber)
+#     - script: echo $(Build.SourceBranchName)
+#     - script: echo $(Build.SourceDirectory)
+#     - script: echo $(Build.SourcesDirectory)
+#     - script: ls -R $(System.DefaultWorkingDirectory)
+#     - script: echo $(Build.ArtifactStagingDirectory)
+#     - script: java -version
+#     - script: node --version
+#     - script: python --version 
+#     - task: CopyFiles@2
+#       inputs:
+#         SourceFolder: '$(System.DefaultWorkingDirectory)'
+#         Contents: |
+#           **/*.yaml
+#           **/*.tf
+#         TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#     - script: ls -R $(System.DefaultWorkingDirectory)
+
 trigger:
 - main
 
 pool:
-  name: Default
+  name: Default   # your Windows self-hosted agent pool
 
 stages:
 - stage: Build
@@ -10,17 +42,20 @@ stages:
   - job: FirstJob
     steps:
     - script: echo Build FirstJob
-    - script: echo $(Build.BuildNumber)
-    - script: echo $(Build.BuildId)
-    - script: echo $(Build.BuildNumber)
-    - script: echo $(Build.SourceBranchName)
-    - script: echo $(Build.SourceDirectory)
-    - script: echo $(Build.SourcesDirectory)
-    - script: ls -R $(System.DefaultWorkingDirectory)
-    - script: echo $(Build.ArtifactStagingDirectory)
+    - script: $(Build.BuildNumber)
+    - script: $(Build.BuildId)
+    - script: $(Build.SourceBranchName)
+    - script: $(Build.SourcesDirectory)
+    - script: $(System.DefaultWorkingDirectory)
+    - script: $(Build.ArtifactStagingDirectory)
+
+    - script: dir "$(System.DefaultWorkingDirectory)" /s
+
     - script: java -version
     - script: node --version
-    - script: python --version 
+    - script: python --version
+
+    # Copy YAML & TF files
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -28,7 +63,11 @@ stages:
           **/*.yaml
           **/*.tf
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    - script: ls -R $(System.DefaultWorkingDirectory)
+
+    # Show copied files
+    - script: dir "$(Build.ArtifactStagingDirectory)" /s
+
+
 
 #   - job: SecondJob
 #     steps:
