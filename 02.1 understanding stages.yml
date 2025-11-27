@@ -15,58 +15,21 @@ stages:
     - script: echo $(Build.BuildNumber)
     - script: echo $(Build.SourceBranchName)
     - script: echo $(Build.SourceDirectory)
-    - script: echo $(Build.SourcesDirectory)
-    - script: ls -R $(System.DefaultWorkingDirectory)
-    - script: echo $(Build.ArtifactStagingDirectory)
+    # - script: echo $(Build.SourcesDirectory)
+    # - script: ls -R $(System.DefaultWorkingDirectory)
+    # - script: echo $(Build.ArtifactStagingDirectory)
     # - script: java -version
     # - script: node --version
     # - script: python --version 
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: |
-          **/*.yaml
-          **/*.tf
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    - script: ls -R $(System.DefaultWorkingDirectory)
+    # - task: CopyFiles@2
+    #   inputs:
+    #     SourceFolder: '$(System.DefaultWorkingDirectory)'
+    #     Contents: |
+    #       **/*.yaml
+    #       **/*.tf
+    #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    # - script: ls -R $(System.DefaultWorkingDirectory)
 
-# trigger:
-# - main
-
-# pool:
-#   name: Default   # your Windows self-hosted agent pool
-#   demands:
-#   - Agent.OS -equals Windows_NT
-
-# stages:
-# - stage: Build
-#   jobs:
-#   - job: FirstJob
-#     steps:
-#     - script: echo Build FirstJob
-#     - script: $(Build.BuildNumber)
-#     - script: $(Build.BuildId)
-#     - script: $(Build.SourceBranchName)
-#     - script: $(Build.SourcesDirectory)
-#     - script: $(System.DefaultWorkingDirectory)
-#     - script: $(Build.ArtifactStagingDirectory)
-
-#     - script: dir "$(System.DefaultWorkingDirectory)" /s
-
-#     - script: java -version
-#     - script: node --version
-#     - script: python --version
-
-#     - task: CopyFiles@2
-#       inputs:
-#         SourceFolder: '$(System.DefaultWorkingDirectory)'
-#         Contents: |
-#           **/*.yaml
-#           **/*.tf
-#         TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-#     # Show copied files
-#     - script: dir "$(Build.ArtifactStagingDirectory)" /s
 
 
 
