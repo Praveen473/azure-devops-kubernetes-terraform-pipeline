@@ -35,6 +35,8 @@ trigger:
 
 pool:
   name: Default   # your Windows self-hosted agent pool
+  demands:
+  - Agent.OS -equals Windows_NT
 
 stages:
 - stage: Build
@@ -55,7 +57,6 @@ stages:
     - script: node --version
     - script: python --version
 
-    # Copy YAML & TF files
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
