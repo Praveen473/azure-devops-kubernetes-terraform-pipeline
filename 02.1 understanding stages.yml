@@ -10,30 +10,40 @@ stages:
   - job: FirstJob
     steps:
     - script: echo Build FirstJob
+    - script: echo $(Build.BuildNumber)
+    - script: echo $(Build.BuildId)
+    - script: echo $(Build.BuildNumber)
+    - script: echo $(Build.SourceBranchName)
+    - script: echo $(Build.SourceDirectory)
+    - script: echo $(Build.SourcesDirectory)
+    - script: ls -R $(System.DefaultWorkingDirectory)
+    - script: echo $(Build.ArtifactStagingDirectory)
 
-  - job: SecondJob
-    steps:
-    - script: echo Build SecondJob
 
-- stage: DevDeploy
-  dependsOn: Build
-  jobs:
-  - job: DevDeployJob
-    steps:
-    - script: echo DevDeployJob
 
-- stage: QADeploy
-  dependsOn: DevDeploy
-  jobs:
-  - job: QADeployJob
-    steps:
-    - script: echo QADeployJob
+#   - job: SecondJob
+#     steps:
+#     - script: echo Build SecondJob
 
-- stage: ProdDeploy
-  dependsOn: 
-   - Build
-   - DevDeploy
-  jobs:
-  - job: ProdDeployJob
-    steps:
-    - script: echo ProdDeployJob
+# - stage: DevDeploy
+#   dependsOn: Build
+#   jobs:
+#   - job: DevDeployJob
+#     steps:
+#     - script: echo DevDeployJob
+
+# - stage: QADeploy
+#   dependsOn: DevDeploy
+#   jobs:
+#   - job: QADeployJob
+#     steps:
+#     - script: echo QADeployJob
+
+# - stage: ProdDeploy
+#   dependsOn: 
+#    - Build
+#    - DevDeploy
+#   jobs:
+#   - job: ProdDeployJob
+#     steps:
+#     - script: echo ProdDeployJob
