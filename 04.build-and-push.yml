@@ -14,7 +14,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: windows-latest    
+      name: Default    
     steps:
     - task: Docker@2
       displayName: Build an image
