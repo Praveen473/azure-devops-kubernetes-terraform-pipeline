@@ -1,5 +1,5 @@
 trigger:
-- main
+- master
 
 resources:
 - repo: self
@@ -14,13 +14,14 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      name: Default    
+      name: Default   # <-- Windows self-hosted agent
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build and Push Docker Image
       inputs:
-        containerRegistry: 'praveen-docker-hub'
+        containerRegistry: 'praveen-docker-hub' 
         repository: 'testpassword1234567890/currency-exchange-devops'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+        tags: |
+          $(tag)
